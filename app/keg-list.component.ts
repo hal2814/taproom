@@ -9,9 +9,11 @@ import { Keg } from './keg.model';
     <option value="employee">Employee list</option>
   </select>
 <ul>
-  <li (click)="isDone(currentKeg)" *ngFor="let currentKeg of childKegList | fullness:filterByfullness">{{currentKeg.name}}, {{currentKeg.brand}} Price: {{currentKeg.price}} ABV: {{currentKeg.abv}} <span *ngIf="displayPints === true">Pints left: {{currentKeg.pints}}</span>
+  <li [class]= "priorityColor(currentKeg)" *ngFor="let currentKeg of childKegList | fullness:filterByfullness">{{currentKeg.name}}, {{currentKeg.brand}} Price: {{currentKeg.price}} ABV: {{currentKeg.abv}}% <span *ngIf="displayPints === true">Pints left: {{currentKeg.pints}}</span>
     <button (click)="replaceDone(currentKeg, 124)"> Replace Keg </button>
     <button (click)="editButtonHasBeenClicked(currentKeg)">Edit!</button>
+    <button *ngIf="displayPints === true" (click)="sellPint(currentKeg)">Sell A Pint</button>
+    
 
     <button class="btn btn-warning" (click)="replaceDone(currentKeg, 9)"> Sell A LOT of Beer </button>
   </li>
@@ -36,17 +38,25 @@ export class KegListComponent {
     this.clickSender.emit(kegToEdit);
   }
 
+  deleteButtonClicked(kegToDelete: Keg) {
+    this.clickSender.emit(kegToDelete);
+  }
+
   replaceDone(clickedKeg: Keg, replaceKeg: number) {
    clickedKeg.pints = replaceKeg;
  }
 
-  isDone(clickedKeg: Keg) {
-    if(clickedKeg.pints === 0) {
-      alert("This keg is empty!");
-    } else {
-      alert("This keg is not empty. Better get drinkin!");
-    }
-  }
+ sellPint(clickedKeg: Keg) {
+   clickedKeg.pints -= 1;
+ }
+
+  // isDone(clickedKeg: Keg) {
+  //   if(clickedKeg.pints === 0) {
+  //     alert("This keg is empty!");
+  //   } else {
+  //     alert("This keg is not empty. Better get drinkin!");
+  //   }
+  // }
 
   displayType(optionFromMenu) {
     if (optionFromMenu === "employee") {
