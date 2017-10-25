@@ -21,16 +21,15 @@ import { Keg } from './keg.model';
     <label>Enter Keg Alcohal by volume:</label>
     <input #newAbv>
   </div>
-  <button (click)="submitForm(newName.value, newPrice.value, newAbv.value, newBrand.value); newName.value='', newBrand.value='', newPrice.value=0, newAbv.value=0.0;">Add</button>
- </div>
+  <button (click)="submitForm(newName.value, newPrice.value, newAbv.value, newBrand.value); newName.value=''; newBrand.value=''; newPrice.value=0; newAbv.value=0.0;">Add</button>
   `
 })
 
 export class NewKegComponent {
   @Output() newKegSender = new EventEmitter();
 
-  submitForm(description: string, priority: number) {
-    var newKegToAdd: Keg = new Keg(name, brand, price, abv);
+  submitForm(name: string, brand: string, price: number, abv: number) {
+    var newKegToAdd: Keg = new Keg(name,brand,price,abv);
     this.newKegSender.emit(newKegToAdd);
   }
 }

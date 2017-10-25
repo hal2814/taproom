@@ -7,7 +7,7 @@ import {Keg} from './keg.model';
 })
 
 
-export class fullnessPipe implements PipeTransform {
+export class FullnessPipe implements PipeTransform {
   transform(input: Keg[], kegState) {
      var output: Keg[] = [];
      if(kegState === "emptyKegs") {
