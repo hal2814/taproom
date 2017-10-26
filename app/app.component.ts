@@ -12,6 +12,8 @@ import { Keg } from './keg.model';
       <edit-keg [childSelectedKeg]="selectedKeg" (doneButtonClickedSender)="finishedEditing()"></edit-keg>
       <delete-keg [deleteSelectedKeg]="selectedKeg" (confirmButtonClickedSender)="finishedEditing()"></delete-keg>
       <new-keg (newKegSender)="addKeg($event)"></new-keg>
+      <show-aaron (aaronSender)="showAaron($event)"> <p>FUCK OFF</p> </show-aaron>
+      {{aaron}}
 
     </div>
   `
@@ -25,12 +27,14 @@ export class AppComponent {
     new Keg('Belgian White', 'Hoegarten',6, 3.7),
     new Keg('Stout', 'Ninkasi',4, 7.1)
   ];
+  aaron: string = "nothing"
   editKeg(clickedKeg) {
     this.selectedKeg = clickedKeg;
   }
 
   deleteKeg(deleteKeg) {
-    this.masterKegList.splice(this.masterKegList.indexOf(this.selectedKeg), 1);
+
+    this.masterKegList.splice(this.masterKegList.indexOf(deleteKeg), 1);
   }
 
   finishedEditing() {
@@ -39,6 +43,10 @@ export class AppComponent {
 
   addKeg(newKegFromChild: Keg) {
     this.masterKegList.push(newKegFromChild);
+  }
+
+  showAaron(newAaron) {
+    this.aaron= newAaron
   }
 
 }
