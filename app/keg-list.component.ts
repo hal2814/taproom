@@ -12,6 +12,7 @@ import { Keg } from './keg.model';
   <li *ngFor="let currentKeg of childKegList | fullness:filterByfullness"><h3>{{currentKeg.name}}</h3> <h4>{{currentKeg.brand}}</h4> <h4><span [class]="priceColor(currentKeg)">Price: $ {{currentKeg.price}} </span></h4> <h4><span [class]="abvColor(currentKeg)">ABV: {{currentKeg.abv}}%</span></h4> <h4><span [class]= "pintColor(currentKeg)"  *ngIf="displayPints === true">Pints left: {{currentKeg.pints}}</span></h4>
     <button (click)="replaceDone(currentKeg, 124)"> Replace Keg </button>
     <button (click)="editButtonHasBeenClicked(currentKeg)">Edit!</button>
+    <button (click)="deleteButtonClicked(currentKeg)">Delete</button>
     <button *ngIf="displayPints === true" (click)="sellPint(currentKeg)">Sell A Pint</button>
 
 
@@ -25,21 +26,20 @@ export class KegListComponent {
 
   @Input() childKegList: Keg[];
   @Output() clickSender = new EventEmitter();
-
+  @Output() AnotherClickSender = new EventEmitter();
   filterByfullness: string = "fullKegs";
   displayPints: boolean = false;
 
   onChange(optionFromMenu) {
   this.filterByfullness = optionFromMenu;
-
-}
+  }
 
   editButtonHasBeenClicked(kegToEdit: Keg) {
     this.clickSender.emit(kegToEdit);
   }
 
   deleteButtonClicked(kegToDelete: Keg) {
-    this.clickSender.emit(kegToDelete);
+    this.AnotherClickSender.emit(kegToDelete);
   }
 
   replaceDone(clickedKeg: Keg, replaceKeg: number) {

@@ -6,22 +6,22 @@ import { Keg } from './keg.model';
   template: `
     <div>
         <div *ngIf="childSelectedKeg">
+        <h3>Delete Keg?</h3>
           <h3>{{childSelectedKeg.name}}</h3>
           <p>{{childSelectedKeg.brand}}</p>
-          <hr>
-          <h3>Delete Keg?</h3>
 
-          <button (click)="deleteButtonClicked()">Done</button>
+
+          <button (click)="deleteButtonClicked()">Confirm</button>
         </div>
       </div>
   `
 })
 
-export class EditKegComponent {
-  @Input() childSelectedKeg: Keg;
-  @Output() deleteButtonClickedSender = new EventEmitter();
+export class DeleteKegComponent {
+  @Input() deleteSelectedKeg: Keg;
+  @Output() confirmButtonClickedSender = new EventEmitter();
 
-  deleteButtonClicked() {
-    this.deleteButtonClickedSender.emit();
+  confirmButtonClicked() {
+    this.confirmButtonClickedSender.emit();
   }
 }

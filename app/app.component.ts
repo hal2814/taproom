@@ -7,11 +7,12 @@ import { Keg } from './keg.model';
     <div class="container">
       <h1>Beer</h1>
       <h3>{{currentFocus}}</h3>
-      <keg-list [childKegList]="masterKegList" (clickSender)="editKeg($event)"></keg-list>
+      <keg-list [childKegList]="masterKegList" (clickSender)="editKeg($event)" (AnotherClickSender)="deleteKeg($event)"></keg-list>
       <hr>
       <edit-keg [childSelectedKeg]="selectedKeg" (doneButtonClickedSender)="finishedEditing()"></edit-keg>
+      <delete-keg [deleteSelectedKeg]="selectedKeg" (confirmButtonClickedSender)="finishedEditing()"></delete-keg>
       <new-keg (newKegSender)="addKeg($event)"></new-keg>
-      
+
     </div>
   `
 })
@@ -29,9 +30,9 @@ export class AppComponent {
     this.selectedKeg = clickedKeg;
   }
 
-  // deleteKeg(childSelectedKeg: Keg) {
-  //   this.masterKegList.splice(this.masterKegList.indexOf(clickedKeg), 1);
-  // }
+  deleteKeg(deleteKeg) {
+    this.masterKegList.splice(this.masterKegList.indexOf(this.selectedKeg), 1);
+  }
 
   finishedEditing() {
     this.selectedKeg = null;
