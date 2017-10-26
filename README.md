@@ -11,16 +11,14 @@
 git clone https://github.com/AaronRohrbacher/taproom
 ```
 * _Install Node if you haven't already!_
-```
-npm install
-```
+
 * _In your bash console, navigate to the root of this project._
 ```
 cd taproom
 ```
 * _Now, run_
 ```
-bower install && gulp build && gulp serve
+npm install && bower install && gulp build && gulp serve
 ```
 
 ![alt text](img/screen.png)
