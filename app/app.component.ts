@@ -25,7 +25,6 @@ export class AppComponent {
     new Keg('Belgian White', 'Hoegarten',6, 3.7),
     new Keg('Stout', 'Ninkasi',4, 7.1)
   ];
-
   editKeg(clickedKeg) {
     this.selectedKeg = clickedKeg;
   }

@@ -4,12 +4,20 @@ import { Keg } from './keg.model';
 @Component({
   selector: 'keg-list',
   template: `
+  <h3>Filter Results by Beer Type: </h3>
+  <select (change)="beerChange($event.target.value)">
+  <option value="all">All Beers</option>
+    <option value="Brown Ale">Brown Ale</option>
+    <option value="Stout">Stout</option>
+    <option value="American Lager">American Lager</option>
+  </select>
+
   <select (change)="onChange($event.target.value)"(change)="displayType($event.target.value)">
     <option value="fullKegs">Patron Menu</option>
     <option value="employee">Employee list</option>
   </select>
 <ul>
-  <li *ngFor="let currentKeg of childKegList | fullness:filterByfullness"><h3>{{currentKeg.name}}</h3> <h4>{{currentKeg.brand}}</h4> <h4><span [class]="priceColor(currentKeg)">Price: $ {{currentKeg.price}} </span></h4> <h4><span [class]="abvColor(currentKeg)">ABV: {{currentKeg.abv}}%</span></h4> <h4><span [class]= "pintColor(currentKeg)"  *ngIf="displayPints === true">Pints left: {{currentKeg.pints}}</span></h4>
+  <li *ngFor="let currentKeg of childKegList | includes:beerFilter | fullness:filterByfullness"><h3>{{currentKeg.name}}</h3> <h4>{{currentKeg.brand}}</h4> <h4><span [class]="priceColor(currentKeg)">Price: $ {{currentKeg.price}} </span></h4> <h4><span [class]="abvColor(currentKeg)">ABV: {{currentKeg.abv}}%</span></h4> <h4><span [class]= "pintColor(currentKeg)"  *ngIf="displayPints === true">Pints left: {{currentKeg.pints}}</span></h4>
     <button (click)="replaceDone(currentKeg, 124)"> Replace Keg </button>
     <button (click)="editButtonHasBeenClicked(currentKeg)">Edit!</button>
     <button (click)="deleteButtonClicked(currentKeg)">Delete</button>
@@ -28,10 +36,15 @@ export class KegListComponent {
   @Output() clickSender = new EventEmitter();
   @Output() AnotherClickSender = new EventEmitter();
   filterByfullness: string = "fullKegs";
+  beerFilter: string = "all";
   displayPints: boolean = false;
 
   onChange(optionFromMenu) {
   this.filterByfullness = optionFromMenu;
+  }
+
+  beerChange(beerOption) {
+  this.beerFilter = beerOption;
   }
 
   editButtonHasBeenClicked(kegToEdit: Keg) {
