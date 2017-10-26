@@ -9,11 +9,11 @@ import { Keg } from './keg.model';
     <option value="employee">Employee list</option>
   </select>
 <ul>
-  <li [class]= "priorityColor(currentKeg)" *ngFor="let currentKeg of childKegList | fullness:filterByfullness">{{currentKeg.name}}, {{currentKeg.brand}} Price: {{currentKeg.price}} ABV: {{currentKeg.abv}}% <span *ngIf="displayPints === true">Pints left: {{currentKeg.pints}}</span>
+  <li *ngFor="let currentKeg of childKegList | fullness:filterByfullness"><h3>{{currentKeg.name}}</h3> <h4>{{currentKeg.brand}}</h4> <h4><span [class]="priceColor(currentKeg)">Price: $ {{currentKeg.price}} </span></h4> <h4><span [class]="abvColor(currentKeg)">ABV: {{currentKeg.abv}}%</span></h4> <h4><span [class]= "pintColor(currentKeg)"  *ngIf="displayPints === true">Pints left: {{currentKeg.pints}}</span></h4>
     <button (click)="replaceDone(currentKeg, 124)"> Replace Keg </button>
     <button (click)="editButtonHasBeenClicked(currentKeg)">Edit!</button>
     <button *ngIf="displayPints === true" (click)="sellPint(currentKeg)">Sell A Pint</button>
-    
+
 
     <button class="btn btn-warning" (click)="replaceDone(currentKeg, 9)"> Sell A LOT of Beer </button>
   </li>
@@ -66,11 +66,31 @@ export class KegListComponent {
     }
   }
 
-  priorityColor(currentKeg){
+  pintColor(currentKeg){
     if (currentKeg.pints <= 10){
       return "bg-danger";
     } else {
+      return "bg-success";
+    }
+  }
+
+  priceColor(currentKeg){
+    if (currentKeg.price <= 5){
+      return "bg-success";
+    } else if(currentKeg.price >= 6 && currentKeg.price <= 9) {
       return "bg-info";
+    } else if(currentKeg.price >= 10) {
+      return "bg-warning";
+    }
+  }
+
+  abvColor(currentKeg){
+    if (currentKeg.abv <= 4.0){
+      return "bg-success";
+    } else if(currentKeg.abv >= 5.0 && currentKeg.abv <= 8.0) {
+      return "bg-warning";
+    } else if(currentKeg.abv >= 8.1) {
+      return "bg-danger";
     }
   }
 }
